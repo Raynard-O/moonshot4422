@@ -14,7 +14,7 @@ int debug = 0;
 
 int fgp;
 int imageQtest;
-char* test = "./image.jpeg";
+char *test = "../testb.jpeg";
 
 using namespace std;
 
@@ -36,7 +36,7 @@ void liveStreamImage () {
     std::ofstream outFile ( "liveImage.jpeg",std::ios::binary );
     outFile<<"P6\n"<<Camera.getWidth() <<" "<<Camera.getHeight() <<" 255\n";
     outFile.write ( ( char* ) data, Camera.getImageTypeSize ( raspicam::RASPICAM_FORMAT_RGB ) );
-    cout<<"Image saved at liveImage.jpeg"<<endl;
+    cout<<"\nImage saved at liveImage.jpeg"<<endl;
     //free resrources
     delete data;
 }
@@ -53,7 +53,7 @@ int main() {
     wiringPiSetup(); //Initialize wiringPi
     ms_ledInit();
     ms_led_on();
-    system("../build2/msPicture");
+    //system("../build2/msPicture");
 
     std::atomic<bool> running {true};
 
@@ -94,52 +94,73 @@ int main() {
 
         if (MODE == "SINGLEFINGER") {
 
-            imageQtest = ((ms_imagequality("./image_01.wsq") < 3));
+            int f1 = ms_imagequality("./image_01.wsq");
+            imageQtest = (f1 < 3);
             //check image quality
-            if ((ms_imagequality("./image_01.wsq") < 3))
-            {cout<<"Image saved at image.jpeg"<<endl;
+            if (f1 < 3)
+            {cout<<"Image saved at image.jpeg"<<f1<<endl;
             }
         }else if (MODE == "THUMB") {
+            int f1, f2;
+            f1 = ms_imagequality("./image_11.wsq");
+            f2 = ms_imagequality("./image_12.wsq");
 
-            imageQtest = ((ms_imagequality("./image_11.wsq") < 3) &&
-                          (ms_imagequality("./image_12.wsq") < 3));
+
+            imageQtest = (f1 < 3 &&
+                          f2 < 3);
             //check image quality
-            if (!(ms_imagequality("./image_02.wsq") < 3))
-            {std::cerr <<"image_11 : error"<<endl;
-            }if (!(ms_imagequality("./image_02.wsq") < 3)) {
-                std::cerr << "image_12 : error" << endl;
+            if (f1 >= 3)
+            {std::cerr <<"image_11 : error:"<<f1<<endl;
+            }if (f2 >= 3) {
+                std::cerr << "image_12 : error:" <<f2<< endl;
             }
         }else if (MODE == "LEFTHAND") {
 
-            imageQtest = ((ms_imagequality("./image_07.wsq") < 3) &&
-                          (ms_imagequality("./image_08.wsq") < 3)
-                          && (ms_imagequality("./image_09.wsq") < 3) &&
-                          (ms_imagequality("./image_10.wsq") < 3));
+
+            int f1,f2,f3,f4;
+
+            f1 = ms_imagequality("./image_07.wsq");
+            f2 = ms_imagequality("./image_08.wsq");
+            f3 = ms_imagequality("./image_09.wsq");
+            f4 = ms_imagequality("./image_10.wsq");
+
+
+            imageQtest = (f1 < 3&&
+                          f2 < 3&&
+                          f3< 3&&
+                          f4< 3);
             //check image quality
-            if (!(ms_imagequality("./image_07.wsq") < 3))
-            {std::cerr <<"image_02 : error"<<endl;
-            }if (!(ms_imagequality("./image_08.wsq") < 3)){
-                std::cerr <<"image_03 : error"<<endl;
-            }if (!(ms_imagequality("./image_09.wsq") < 3)){
-                std::cerr <<"image_04 : error"<<endl;
-            }if (!(ms_imagequality("./image_10.wsq") < 3)){
-                std::cerr <<"image_05 : error"<<endl;}
+            if (f1 >= 3)
+            {std::cerr <<"image_02 : error:"<<f1<<endl;
+            }if (f2 >= 3){
+                std::cerr <<"image_03 : error:"<<f2<<endl;
+            }if (f3>= 3){
+                std::cerr <<"image_04 : error:"<<f3<<endl;
+            }if (f4 >= 3){
+                std::cerr <<"image_05 : error:"<<f4<<endl;}
 
         } if (MODE == "RIGHTHAND") {
 
-            imageQtest = ((ms_imagequality("./image_02.wsq") < 3) &&
-                          (ms_imagequality("./image_03.wsq") < 3)
-                          && (ms_imagequality("./image_04.wsq") < 3) &&
-                          (ms_imagequality("./image_05.wsq") < 3));
+            int f1,f2,f3,f4;
+
+            f1 = ms_imagequality("./image_02.wsq");
+            f2 = ms_imagequality("./image_03.wsq");
+            f3 = ms_imagequality("./image_04.wsq");
+            f4 = ms_imagequality("./image_05.wsq");
+            std::cerr <<"imagescode: "<<f4<<f2<<f3<<f1<<endl;
+            imageQtest = (f1 < 3&&
+                          f2 < 3&&
+                          f3 < 3&&
+                          f4 < 3 );
             //check image quality
-            if (!(ms_imagequality("./image_02.wsq") < 3))
-            {std::cerr <<"image_02 : error"<<endl;
-            }if (!(ms_imagequality("./image_02.wsq") < 3)){
-                std::cerr <<"image_03 : error"<<endl;
-            }if (!(ms_imagequality("./image_02.wsq") < 3)){
-                std::cerr <<"image_04 : error"<<endl;
-            }if (!(ms_imagequality("./image_02.wsq") < 3)) {
-                std::cerr <<"image_05 : error\n" ;
+            if (f1 >= 3)
+            {std::cerr <<"image_02 : error: " <<f1<<endl;
+            }if (f2>= 3){
+                std::cerr <<"image_03 : error: "<<f2<<endl;
+            }if (f3 >= 3){
+                std::cerr <<"image_04 : error: "<<f3<<endl;
+            }if (f4 >= 3) {
+                std::cerr <<"image_05 : error: "<<f4<<endl;
             }
         }
 
