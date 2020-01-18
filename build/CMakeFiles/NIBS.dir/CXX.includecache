@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pi/Nibs/ms_func.cpp
+iostream
+-
+ms_func.h
+/home/pi/Nibs/ms_func.h
+wiringPi.h
+-
+raspicam/raspicam_cv.h
+-
+opencv2/opencv.hpp
+-
+
+/home/pi/Nibs/ms_func.h
+
+/usr/local/include/raspicam/raspicam_cv.h
+opencv2/core/core.hpp
+-
+opencv2/highgui/highgui.hpp
+-
+

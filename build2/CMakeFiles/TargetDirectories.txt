@@ -1,0 +1,3 @@
+/home/pi/threadNist/build2/CMakeFiles/rebuild_cache.dir
+/home/pi/threadNist/build2/CMakeFiles/msPicture.dir
+/home/pi/threadNist/build2/CMakeFiles/edit_cache.dir

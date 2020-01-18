@@ -1,0 +1,3 @@
+/home/pi/Nibs/build/CMakeFiles/rebuild_cache.dir
+/home/pi/Nibs/build/CMakeFiles/NIBS.dir
+/home/pi/Nibs/build/CMakeFiles/edit_cache.dir
